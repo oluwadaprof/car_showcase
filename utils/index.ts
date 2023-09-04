@@ -1,10 +1,15 @@
+import { CarProps } from "@/types";
 import dotenv from "dotenv";
 dotenv.config();
 
-const model: string = "camry";
-const apiKey: string = process.env.REACT_APP_API_KEY || ""; // Provide a default value
+const model: string = "carrera";
+const apiKey: string = process.env.API_KEY || ""; // Provide a default value
 
-const url = `https://api.api-ninjas.com/v1/cars?model=corolla`;
+const url = `https://api.api-ninjas.com/v1/cars?limit=all&model=${model}`;
+
+
+console.log("URL:", url); // Log the URL for debugging purposes
+console.log("API Key:", apiKey); 
 
 fetch(url, {
   method: "GET",
@@ -55,3 +60,19 @@ export const calculateCarRent = (city_mpg: number, year: number) => {
 
   return rentalRatePerDay.toFixed(0);
 };
+
+
+export const generateCarImageUrl = (car: CarProps, angle?:string) =>{
+ const url = new URL('https://cdn.imagin.studio/getimage');
+
+ const {make, year, model} = car;
+
+ url.searchParams.append('customer', 'hrjavascript-mastery');
+ url.searchParams.append('make', make)
+ url.searchParams.append('modelFamily', model.split(' ')[0])
+ url.searchParams.append('zoomType', 'fullscreen');
+ url.searchParams.append('modelYear', `${year}`)
+ url.searchParams.append('angle', `${angle}`)
+
+ return `${url}`
+}
