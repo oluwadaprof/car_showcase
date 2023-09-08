@@ -1,39 +1,22 @@
 import { CarProps } from "@/types";
 import dotenv from "dotenv";
 dotenv.config();
+import { FilterProps } from "@/types";
 
-const model: string = "carrera";
+
+
 const apiKey: string = process.env.API_KEY || ""; // Provide a default value
 
-const url = `https://api.api-ninjas.com/v1/cars?limit=all&model=${model}`;
 
+export async function fetchCars(filters: FilterProps) {
+  const {manufacturer, year, model, fuel , limit} = filters
+  // console.log(filters)
 
-console.log("URL:", url); // Log the URL for debugging purposes
-console.log("API Key:", apiKey); 
-
-fetch(url, {
-  method: "GET",
-  headers: {
-    "X-Api-Key": apiKey,
-  },
-})
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
-    }
-    return response.json();
-  })
-  .then((data) => {
-    console.log(data);
-  })
-  .catch((error) => {
-    console.error("Request failed:", error.message);
-  });
-
-export async function fetchCars() {
   const headers = {
     "X-Api-Key": apiKey,
   };
+
+  const url = `https://api.api-ninjas.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`;
 
   const response = await fetch(url, {
     headers: headers,
@@ -76,3 +59,28 @@ export const generateCarImageUrl = (car: CarProps, angle?:string) =>{
 
  return `${url}`
 }
+
+
+
+
+
+
+
+// fetch('https://api.api-ninjas.com/v1/cars?', {
+//   method: "GET",
+//   headers: {
+//     "X-Api-Key": apiKey,
+//   },
+// })
+//   .then((response) => {
+//     if (!response.ok) {
+//       throw new Error(`Error: ${response.status} ${response.statusText}`);
+//     }
+//     return response.json();
+//   })
+//   .then((data) => {
+//     console.log(data);
+//   })
+//   .catch((error) => {
+//     console.error("Request failed:", error.message);
+//   });

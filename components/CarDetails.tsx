@@ -44,8 +44,8 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
             >
               <Dialog.Panel
                 className="relative w-full max-w-lg 
-              max-h-[90vh] overflow-y-auto p-6 transform rounded-2xl
-              bg-white text-left shadow-xl transition-all flex flex-col  gap-5"
+              max-h-[90vh] overflow-y-scroll p-6 transform rounded-2xl
+              bg-white text-left shadow-xl transition-all flex flex-col no-scrollbar  gap-5"
               >
                 <button
                   type="button"
