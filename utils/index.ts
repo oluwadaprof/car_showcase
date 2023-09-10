@@ -1,19 +1,19 @@
 import { CarProps } from "@/types";
+import { FilterProps } from "@/types";
 import dotenv from "dotenv";
 dotenv.config();
-import { FilterProps } from "@/types";
-
-
 
 const apiKey: string = process.env.API_KEY || ""; // Provide a default value
+console.log('apiKey',process.env.API_KEY)
+
+
 
 
 export async function fetchCars(filters: FilterProps) {
-  const {manufacturer, year, model, fuel , limit} = filters
-  // console.log(filters)
+  const { manufacturer, year, model, fuel, limit } = filters;
 
   const headers = {
-    "X-Api-Key": apiKey,
+    "X-Api-Key": 'LNIJdHbCE87QII4Ze1ij8g==5ax4Q1gQP3o6fewI',
   };
 
   const url = `https://api.api-ninjas.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`;
@@ -24,6 +24,7 @@ export async function fetchCars(filters: FilterProps) {
 
   const result = await response.json();
 
+ console.log(result);
   return result;
 }
 
@@ -44,21 +45,50 @@ export const calculateCarRent = (city_mpg: number, year: number) => {
   return rentalRatePerDay.toFixed(0);
 };
 
+export const generateCarImageUrl = (car: CarProps, angle?: string) => {
+  const url = new URL("https://cdn.imagin.studio/getimage");
 
-export const generateCarImageUrl = (car: CarProps, angle?:string) =>{
- const url = new URL('https://cdn.imagin.studio/getimage');
+  const { make, year, model } = car;
 
- const {make, year, model} = car;
+  url.searchParams.append("customer", "hrjavascript-mastery");
+  url.searchParams.append("make", make);
+  url.searchParams.append("modelFamily", model.split(" ")[0]);
+  url.searchParams.append("zoomType", "fullscreen");
+  url.searchParams.append("modelYear", `${year}`);
+  url.searchParams.append("angle", `${angle}`);
 
- url.searchParams.append('customer', 'hrjavascript-mastery');
- url.searchParams.append('make', make)
- url.searchParams.append('modelFamily', model.split(' ')[0])
- url.searchParams.append('zoomType', 'fullscreen');
- url.searchParams.append('modelYear', `${year}`)
- url.searchParams.append('angle', `${angle}`)
+  return `${url}`;
+};
 
- return `${url}`
-}
+export const updateSearchParams = (type: string, value: string) => {
+  const searchParams = new URLSearchParams(window.location.search);
+
+  searchParams.set(type, value);
+
+  const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
+
+  return newPathname
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
