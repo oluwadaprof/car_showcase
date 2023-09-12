@@ -46,9 +46,21 @@ export default function Home() {
     getCars();
   }, [fuel, year, limit, model, manufacturer]);
 
-  {
-    /*Check for empty data*/
-  }
+  const imageStyle = {
+    rotate: {
+      animation: 'rotate .5s infinite linear',
+    },
+    '@keyframes rotate': {
+      from: {
+        transform: 'rotate(0deg)',
+      },
+      to: {
+        transform: 'rotate(359deg)',
+      },
+    },
+  };
+  
+
 
   return (
     <main className="overflow-hidden">
@@ -89,11 +101,11 @@ export default function Home() {
             {loading && (
               <div className="mt-16 w-full flex-center">
                 <Image
-                  src="/loader.svg"
+                  src="/tire.svg"
                   alt="loader"
                   width={50}
                   height={50}
-                  className="object-contain"
+                  className={`object-contain ${imageStyle}`}
                 />
               </div>
             )}

@@ -3,8 +3,7 @@ import { FilterProps } from "@/types";
 import dotenv from "dotenv";
 dotenv.config();
 
-const apiKey: string = process.env.API_KEY || ""; // Provide a default value
-console.log('apiKey',process.env.API_KEY)
+const apiKey: string = process.env.NEXT_PUBLIC_API_KEY || "" ; // Provide a default value
 
 
 
@@ -13,7 +12,7 @@ export async function fetchCars(filters: FilterProps) {
   const { manufacturer, year, model, fuel, limit } = filters;
 
   const headers = {
-    "X-Api-Key": 'LNIJdHbCE87QII4Ze1ij8g==5ax4Q1gQP3o6fewI',
+    "X-Api-Key": apiKey,
   };
 
   const url = `https://api.api-ninjas.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`;
